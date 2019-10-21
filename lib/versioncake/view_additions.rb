@@ -5,7 +5,6 @@ require 'action_view'
 # the resolver.
 ActionView::LookupContext.register_detail(:versions){ [] }
 
-=begin
 ActionView::PathResolver.class_eval do
   # not sure why we are doing this yet, but looks like a good idea
   if ActionPack::VERSION::MAJOR >= 4 && ActionPack::VERSION::MINOR >= 1 || ActionPack::VERSION::MAJOR >= 5
@@ -17,10 +16,14 @@ ActionView::PathResolver.class_eval do
                                                      handlers: "."
                                                  })
 
+    ActionView::PathResolver::DEFAULT_PATTERN = ":prefix/:action{.:locale,}{.:formats,}{+:variants,}{.:versions}{.:handlers,}"
+
+=begin
     def initialize(pattern = nil)
       @pattern = pattern || ":prefix/:action{.:locale,}{.:formats,}{+:variants,}{.:versions,}{.:handlers,}"
       super()
     end
+=end
   else
     ActionView::PathResolver::EXTENSIONS.replace [:locale, :formats, :versions, :handlers]
 
@@ -87,4 +90,3 @@ ActionView::Template.class_eval do
     inspect.gsub(/[^a-z0-9_]/, '_')
   end
 end
-=end
