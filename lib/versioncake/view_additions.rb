@@ -16,7 +16,9 @@ ActionView::PathResolver.class_eval do
                                                      handlers: "."
                                                  })
 
-    ActionView::PathResolver::DEFAULT_PATTERN = ":prefix/:action{.:locale,}{.:formats,}{+:variants,}{.:versions}{.:handlers,}"
+    Kernel::silence_warnings {
+      ActionView::PathResolver::DEFAULT_PATTERN = ":prefix/:action{.:locale,}{.:formats,}{+:variants,}{.:versions}{.:handlers,}"
+    }
 
 =begin
     def initialize(pattern = nil)
